@@ -104,7 +104,7 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess }) {
 
         <div className="auth-header">
           <div className="auth-logo-badge">
-            <span className="logo-text">ByteX</span>
+            <span className="logo-text">ByteXX</span>
             <span className="logo-sub">SatQuery AI</span>
           </div>
           <h3 className="auth-title">

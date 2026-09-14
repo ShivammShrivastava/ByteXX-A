@@ -806,7 +806,7 @@ ${ans}
 
 ---
 
-*SatQuery AI | Google Gemma 4 31B | OpenRouter | ByteX Platform*`
+*SatQuery AI | Google Gemma 4 31B | OpenRouter | ByteXX Platform*`
   );
 }
 
@@ -1570,7 +1570,7 @@ export default function SatQueryWorkspace({ user, onLogout }) {
       <aside className={`workspace-sidebar${isMobileSidebarOpen ? ' sidebar-open' : ''}`}>
         <div className="sidebar-top">
           <div className="sidebar-brand">
-            <span className="sidebar-brand-text">ByteX</span>
+            <span className="sidebar-brand-text">ByteXX</span>
           </div>
           <button
             className="sidebar-mobile-close"
@@ -1701,7 +1701,7 @@ export default function SatQueryWorkspace({ user, onLogout }) {
           >
             <Menu size={22} />
           </button>
-          <span className="mobile-topbar-brand">ByteX</span>
+          <span className="mobile-topbar-brand">ByteXX</span>
           <div style={{ width: 36 }} />
         </div>
 

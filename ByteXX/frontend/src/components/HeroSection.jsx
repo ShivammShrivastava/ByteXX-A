@@ -11,7 +11,7 @@ export default function HeroSection({ user, onScrollDown }) {
       <header className="hero-header">
         <div className="hero-header-left">
           <div className="bytex-brand-topleft">
-            <span className="bytex-name">ByteX</span>
+            <span className="bytex-name">ByteXX</span>
           </div>
         </div>
         <div className="hero-header-right"></div>
