@@ -1,0 +1,30 @@
+{
+  "rules": {
+    "users": {
+      "$uid": {
+        ".read": "$uid === auth.uid",
+        ".write": "$uid === auth.uid"
+      }
+    },
+    "queries": {
+      "$queryId": {
+        ".write": "auth != null",
+        ".read": "auth != null"
+      }
+    },
+    "results": {
+      "$queryId": {
+        ".read": "auth != null",
+        ".write": false
+      }
+    },
+    "_health_check": {
+      ".read": true,
+      ".write": false
+    },
+    "_schema": {
+      ".read": true,
+      ".write": false
+    }
+  }
+}

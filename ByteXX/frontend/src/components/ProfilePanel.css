@@ -1,0 +1,487 @@
+/* =========================================
+   PROFILE PAGE — Full-screen overlay
+   Slides up over the workspace. Dark space
+   theme consistent with SatQuery workspace.
+   ========================================= */
+
+/* ── Overlay backdrop ── */
+.profile-page-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 400;
+  display: flex;
+  align-items: flex-end;        /* slides up from bottom */
+  justify-content: center;
+  animation: profileOverlayIn 0.25s ease forwards;
+}
+
+@keyframes profileOverlayIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ── Profile page container ── */
+.profile-page {
+  width: 100%;
+  max-width: 480px;
+  height: 92vh;
+  max-height: 860px;
+  background: #0d0f1a;
+  border: 1px solid rgba(56, 189, 248, 0.15);
+  border-radius: 24px 24px 0 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow:
+    0 -20px 60px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(255, 255, 255, 0.04);
+  animation: profilePageSlideUp 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes profilePageSlideUp {
+  from { transform: translateY(40px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+/* ── Top bar ── */
+.profile-page-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.1rem 1.2rem 0.9rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  flex-shrink: 0;
+}
+
+.profile-back-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.profile-back-btn:hover {
+  background: rgba(56, 189, 248, 0.12);
+  border-color: rgba(56, 189, 248, 0.4);
+  color: #38bdf8;
+}
+
+.profile-page-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.01em;
+}
+
+/* ── Scrollable body ── */
+.profile-page-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.2rem 1.2rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+.profile-page-body::-webkit-scrollbar {
+  width: 3px;
+}
+
+.profile-page-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.profile-page-body::-webkit-scrollbar-thumb {
+  background: rgba(56, 189, 248, 0.2);
+  border-radius: 3px;
+}
+
+/* ── Hero avatar card ── */
+.profile-hero-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  padding: 1.4rem 1.2rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+/* Subtle glow behind avatar */
+.profile-hero-glow {
+  position: absolute;
+  top: -30px;
+  left: -20px;
+  width: 160px;
+  height: 160px;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.14) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.profile-avatar-wrapper {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.profile-avatar-xl {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  border: 2.5px solid rgba(56, 189, 248, 0.35);
+  background: #1a1d2e;
+  display: block;
+}
+
+.profile-status-ring {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2.5px solid #0d0f1a;
+}
+
+.profile-status-ring.online { background: #22c55e; }
+.profile-status-ring.demo   { background: #f59e0b; }
+
+.profile-hero-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  min-width: 0;
+}
+
+.profile-hero-name {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.55rem;
+  font-weight: 800;
+  margin: 0;
+  color: #ffffff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: -0.02em;
+}
+
+.profile-role-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.22rem 0.6rem;
+  border-radius: 999px;
+  width: fit-content;
+  letter-spacing: 0.02em;
+}
+
+.profile-role-badge.real {
+  background: rgba(34, 197, 94, 0.12);
+  color: #4ade80;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.profile-role-badge.demo {
+  background: rgba(245, 158, 11, 0.12);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+/* ── Section label ── */
+.profile-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.profile-section-label {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #4b5563;
+  padding-left: 0.2rem;
+}
+
+/* ── Info list ── */
+.profile-info-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.profile-info-row {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  transition: background 0.12s;
+}
+
+.profile-info-row:last-child {
+  border-bottom: none;
+}
+
+.profile-info-row:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* Icon pill */
+.profile-info-icon-wrap {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.profile-info-icon-wrap.blue   { background: rgba(56, 189, 248, 0.12); color: #38bdf8; }
+.profile-info-icon-wrap.purple { background: rgba(139, 92, 246, 0.12); color: #a78bfa; }
+.profile-info-icon-wrap.green  { background: rgba(34, 197, 94, 0.12);  color: #4ade80; }
+.profile-info-icon-wrap.orange { background: rgba(249, 115, 22, 0.12); color: #fb923c; }
+
+.profile-info-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.08rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.profile-info-key {
+  font-size: 0.67rem;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-family: 'Outfit', sans-serif;
+}
+
+.profile-info-val {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #e2e8f0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.uid-mono {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.78rem;
+  color: #94a3b8;
+}
+
+/* Copy UID button */
+.profile-copy-btn {
+  color: #4b5563;
+  transition: color 0.15s;
+  flex-shrink: 0;
+}
+
+.profile-info-row:hover .profile-copy-btn {
+  color: #38bdf8;
+}
+
+.copy-check {
+  color: #4ade80;
+}
+
+/* ── Stats grid ── */
+.profile-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.6rem;
+}
+
+.profile-stat-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 1rem 0.5rem;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 14px;
+  transition: border-color 0.2s, background 0.15s;
+}
+
+.profile-stat-card:hover {
+  background: rgba(255, 255, 255, 0.045);
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+.stat-card-icon {
+  margin-bottom: 0.1rem;
+}
+
+.stat-card-icon.blue   { color: #38bdf8; }
+.stat-card-icon.purple { color: #a78bfa; }
+.stat-card-icon.green  { color: #4ade80; }
+
+.stat-card-number {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.7rem;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1;
+}
+
+.stat-card-label {
+  font-size: 0.67rem;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  text-align: center;
+  font-family: 'Outfit', sans-serif;
+}
+
+/* ── Connection card ── */
+.profile-connection-card {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.9rem 1rem;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 14px;
+}
+
+.conn-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.conn-dot.online  { background: #22c55e; box-shadow: 0 0 8px rgba(34,197,94,0.5); }
+.conn-dot.offline { background: #f59e0b; box-shadow: 0 0 8px rgba(245,158,11,0.4); }
+
+.conn-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.conn-title {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #e2e8f0;
+}
+
+.conn-sub {
+  font-size: 0.72rem;
+  color: #6b7280;
+  font-family: 'Space Grotesk', monospace;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.conn-icon.online  { color: #22c55e; flex-shrink: 0; }
+.conn-icon.offline { color: #f59e0b; flex-shrink: 0; }
+
+/* ── Footer (logout) ── */
+.profile-page-footer {
+  flex-shrink: 0;
+  padding: 0.9rem 1.2rem;
+  padding-bottom: calc(0.9rem + env(safe-area-inset-bottom, 0px));
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.profile-logout-full-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.85rem;
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 12px;
+  color: #f87171;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.97rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, transform 0.15s;
+  letter-spacing: 0.01em;
+}
+
+.profile-logout-full-btn:hover {
+  background: rgba(239, 68, 68, 0.16);
+  border-color: rgba(239, 68, 68, 0.55);
+  transform: translateY(-1px);
+}
+
+.profile-logout-full-btn:active {
+  transform: translateY(0);
+}
+
+/* ── Desktop: center the panel like a modal (not bottom sheet) ── */
+@media (min-width: 640px) {
+  .profile-page-overlay {
+    align-items: center;
+  }
+
+  .profile-page {
+    height: auto;
+    max-height: 88vh;
+    border-radius: 24px;
+    box-shadow:
+      0 40px 80px rgba(0, 0, 0, 0.7),
+      0 0 0 1px rgba(56, 189, 248, 0.08);
+  }
+}
+
+/* ── Extra-small phones ── */
+@media (max-width: 380px) {
+  .profile-hero-name {
+    font-size: 1.3rem;
+  }
+
+  .profile-avatar-xl {
+    width: 60px;
+    height: 60px;
+  }
+
+  .stat-card-number {
+    font-size: 1.45rem;
+  }
+
+  .profile-page-body {
+    padding: 1rem 0.9rem 0.4rem;
+    gap: 1.1rem;
+  }
+
+  .profile-page-footer {
+    padding: 0.75rem 0.9rem;
+    padding-bottom: calc(0.75rem + env(safe-area-inset-bottom, 0px));
+  }
+}

@@ -1,0 +1,14 @@
+# CNN Module Dependencies — SatQuery AI
+# Install with: pip install -r CNN/requirements_cnn.txt
+
+# YOLOv8 object detection
+ultralytics>=8.0.0
+
+# Image processing & drawing
+opencv-python-headless>=4.8.0
+numpy>=1.24.0
+Pillow>=10.0.0
+
+# Deep learning (shared with backend — no duplicate install needed)
+torch>=2.6.0
+torchvision>=0.19.0

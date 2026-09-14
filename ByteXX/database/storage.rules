@@ -1,0 +1,8 @@
+{
+  "rules": {
+    "uploads": {
+      ".read":  "auth != null",
+      ".write": "auth != null"
+    }
+  }
+}

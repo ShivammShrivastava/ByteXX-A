@@ -1,0 +1,41 @@
+/* Reset & Base Global Styles for ByteX SatQuery AI */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
+  background-color: #02040b;
+  color: #0f172a;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Prevent horizontal scroll on all screen sizes */
+  overflow-x: hidden;
+  /* Prevent text inflation on orientation change (iOS) */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  display: block;
+}
+
+input, button, textarea, select {
+  font-family: inherit;
+  /* Ensure tap targets are comfortable */
+  touch-action: manipulation;
+}
+
+::selection {
+  background: rgba(56, 189, 248, 0.35);
+  color: #0284c7;
+}
+

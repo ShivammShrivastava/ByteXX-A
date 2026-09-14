@@ -1,0 +1,119 @@
+/* App Root and Scroll Orchestration */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
+  background-color: #02040b;
+  color: #ffffff;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+.app-root {
+  position: relative;
+  width: 100%;
+  /* Extended to 320vh for a much longer, smoother atmospheric descent */
+  min-height: 320vh;
+  background-color: #02040b;
+}
+
+/* Fixed 3D Earth Layer */
+.earth-canvas-fixed-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Atmospheric Gradient - soft wide ellipse rising from bottom */
+.horizon-atmospheric-gradient {
+  position: fixed;
+  inset: 0;
+  background: 
+    radial-gradient(
+      ellipse 140% 90% at 50% 130%,
+      rgba(56, 189, 248, 0.55) 0%,
+      rgba(37, 99, 235, 0.38) 22%,
+      rgba(30, 27, 75, 0.28) 48%,
+      transparent 72%
+    );
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Daylight fill - gradual vertical gradient into dark workspace (no white flash) */
+.daylight-white-fill {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(14, 14, 14, 0.08) 20%,
+    rgba(20, 20, 20, 0.35) 45%,
+    rgba(33, 33, 33, 0.75) 68%,
+    rgb(33, 33, 33) 100%
+  );
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* Hero Section */
+.hero-scroll-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  z-index: 10;
+}
+
+/* Extended buffer — 120vh gives plenty of scroll room for smooth fade */
+.horizon-transition-buffer {
+  position: relative;
+  width: 100%;
+  height: 120vh;
+  z-index: 10;
+  pointer-events: none;
+}
+
+/* Workspace — sits naturally after the buffer */
+.workspace-scroll-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  z-index: 20;
+  background-color: #212121;
+  box-shadow: 0 -80px 120px 40px rgba(33, 33, 33, 0.98);
+}
+
+/* ─── Mobile: shorten the scroll journey ─── */
+@media (max-width: 768px) {
+  .app-root {
+    /* Shorter scroll distance on mobile — less travel to reach workspace */
+    min-height: 220vh;
+  }
+
+  .horizon-transition-buffer {
+    height: 70vh;
+  }
+
+  .workspace-scroll-section {
+    /* Allow workspace to grow beyond 100vh on mobile so content isn't clipped */
+    height: auto;
+    min-height: 100vh;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-root {
+    min-height: 190vh;
+  }
+
+  .horizon-transition-buffer {
+    height: 50vh;
+  }
+}
+

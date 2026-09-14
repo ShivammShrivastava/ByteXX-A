@@ -1,0 +1,63 @@
+# Processed data (too large for git — 227 MB)
+data/processed/
+
+# Model outputs and checkpoints
+outputs/
+satquery_checkpoints/
+*.zip
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+
+# Environment
+.env
+.venv/
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Logs
+logs
+*.log
+node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+wandb/
+
+dist-ssr/
+*.local
+!.vscode/extensions.json
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+.env
+
+serviceAccountKey.json
+
+**/serviceAccountKey.json
