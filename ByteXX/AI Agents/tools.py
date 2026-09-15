@@ -163,12 +163,45 @@ async def cnn_detect(
         )
 
         answer = vqa_result.get("answer", "")
-        conf   = vqa_result.get("confidence", 0.70)
+        conf   = vqa_result.get("confidence", 0.75)
 
-        # Try to extract a numeric count from the answer
+        # Guard: if the answer looks like an error message, don't parse a count from it.
+        # This prevents HTTP error codes (404, 429, etc.) being reported as object counts.
+        _error_indicators = (
+            "analysis failed", "inference failed", "http ", "error",
+            "unavailable", "model not found", "no endpoints",
+        )
+        answer_is_error = any(ind in answer.lower() for ind in _error_indicators)
+
+        if answer_is_error:
+            # VLM failed — return clean zero result, surface error in answer field
+            result = {
+                "object_counts":    {},
+                "total_detections": 0,
+                "bboxes":           [],
+                "bbox_labels":      [],
+                "bbox_confidences": [],
+                "answer":           "",   # Don't surface error text as an answer
+                "model":            "gemma-4-31b",
+                "source":           "gemma4_fallback_error",
+                "yolo_zero":        yolo_zero,
+            }
+            return ToolResult(
+                tool_name="cnn_detect",
+                result=result,
+                confidence=0.0,
+                duration_ms=(time.perf_counter() - t0) * 1000,
+                success=False,
+                error="All VLM models unavailable (rate-limited or 404). Try again shortly.",
+                metadata={"target_classes": target_classes, "fallback": "gemma4_failed"},
+            )
+
+        # Extract numeric count from a valid Gemma answer
         import re
         count_match = re.search(r'\b(\d+)\b', answer)
         count_val = int(count_match.group(1)) if count_match else 0
+        # Sanity-cap: never report more than 999 of any object from VLM
+        count_val = min(count_val, 999)
         obj_label = target_classes[0] if target_classes else "object"
 
         result = {
@@ -274,9 +307,14 @@ async def vlm_vqa(image: Image.Image, question: str) -> ToolResult:
                 metadata={"stub": True},
             )
 
+        import base64, io as _io
+        buf = _io.BytesIO()
+        image.save(buf, format="JPEG", quality=85)
+        img_b64 = base64.b64encode(buf.getvalue()).decode("utf-8")
+
         loop = asyncio.get_event_loop()
         vqa_result = await loop.run_in_executor(
-            None, model_manager.answer_vqa, image, question
+            None, model_manager.answer_vqa, img_b64, question
         )
 
         return ToolResult(
@@ -317,9 +355,14 @@ async def vlm_caption(image: Image.Image) -> ToolResult:
                 metadata={"stub": True},
             )
 
+        import base64, io as _io
+        buf = _io.BytesIO()
+        image.save(buf, format="JPEG", quality=85)
+        img_b64 = base64.b64encode(buf.getvalue()).decode("utf-8")
+
         loop = asyncio.get_event_loop()
         cap_result = await loop.run_in_executor(
-            None, model_manager.generate_caption, image
+            None, model_manager.generate_caption, img_b64
         )
 
         return ToolResult(
@@ -359,9 +402,14 @@ async def vlm_detect(image: Image.Image, object_label: str) -> ToolResult:
                 metadata={"stub": True},
             )
 
+        import base64, io as _io
+        buf = _io.BytesIO()
+        image.save(buf, format="JPEG", quality=85)
+        img_b64 = base64.b64encode(buf.getvalue()).decode("utf-8")
+
         loop = asyncio.get_event_loop()
         det_result = await loop.run_in_executor(
-            None, model_manager.detect_objects, image, object_label
+            None, model_manager.detect_objects, img_b64, object_label
         )
 
         return ToolResult(

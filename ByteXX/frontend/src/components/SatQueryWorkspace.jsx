@@ -554,20 +554,28 @@ function SmartGroundingViewer({ imageUrl, query, answer, bboxes = [], bboxObject
 
 // ─── Answer Enrichment ── rich research-quality report builder ────────────────
 function enrichAnswer(rawAnswer, query) {
-  if (!rawAnswer || rawAnswer === 'No answer returned.') return rawAnswer;
+  // Don't enrich error/fallback messages — return them directly or show nothing
+  const ERROR_STRINGS = [
+    'No answer returned.',
+    'The model did not return a response.',
+    'Analysis failed',
+    'All models are currently rate-limited',
+    'OpenRouter inference failed',
+  ];
+  if (!rawAnswer || ERROR_STRINGS.some(e => rawAnswer.startsWith(e))) {
+    return rawAnswer;
+  }
 
   const q   = (query || '').toLowerCase().trim();
   const ans = rawAnswer.trim();
 
   // Already a rich multi-section response from the model — pass it straight through
-  // with only minor cleanup. This handles the new 512-token research answers.
   if (
     ans.split('\n').length > 5 ||
     ans.length > 300 ||
     ans.includes('###') ||
     ans.includes('**')
   ) {
-    // Wrap raw model answer in a styled research container
     return (
 `## AI Analysis Report
 
@@ -580,7 +588,7 @@ ${ans}
 - **Model:** Google Gemma 4 31B (OpenRouter)
 - **Query processed:** "${query}"
 - **Analysis type:** Research-mode remote sensing intelligence report
-- **Token budget:** 512 tokens (extended analysis mode)
+- **Token budget:** 1024 tokens (extended analysis mode)
 
 ### Confidence & Limitations
 

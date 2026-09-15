@@ -208,7 +208,11 @@ class Merger:
 
             # ── VLM Caption ──────────────────────────────────────────────────
             elif tool == "vlm_caption":
-                report.caption = r.get("caption", "")
+                cap = r.get("caption", "")
+                report.caption = cap
+                # Also set vlm_answer so the frontend text analysis view renders it
+                if cap and not report.vlm_answer:
+                    report.vlm_answer = cap
 
         # ── Build execution step dicts ────────────────────────────────────────
         report.execution_steps = [rec.to_dict() for rec in records]

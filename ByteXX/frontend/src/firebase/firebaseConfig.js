@@ -1,4 +1,4 @@
-// Firebase configuration and services for ByteX SatQuery AI
+// Firebase configuration and services for ByteXX SatQuery AI
 // Note: Firebase Storage is NOT used (requires paid Blaze plan).
 // Images are base64-encoded and stored directly in the free Realtime Database.
 import { initializeApp, getApps, getApp } from 'firebase/app';
@@ -23,16 +23,16 @@ import {
   get,
 } from 'firebase/database';
 
-// ✅ Real Firebase configuration — satellite-efa0a (ByteX project)
+// ✅ Real Firebase configuration — byte-xx (ByteXX project)
 export const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "AIzaSyDJtjpV4DpD-Ev0BeRJDsfZV4k5U63dpW4",
-  authDomain: "satellite-efa0a.firebaseapp.com",
-  databaseURL: "https://satellite-efa0a-default-rtdb.firebaseio.com",
-  projectId: "satellite-efa0a",
-  storageBucket: "satellite-efa0a.firebasestorage.app",
-  messagingSenderId: "504899672780",
-  appId: "1:504899672780:web:4f61a1b212930752cdc069",
-  measurementId: "G-TY956H2RJF"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "AIzaSyC6ZGXjgujlhz3UEvFPHubDLLDQx5PGMBc",
+  authDomain: "byte-xx.firebaseapp.com",
+  databaseURL: "https://byte-xx-default-rtdb.firebaseio.com",
+  projectId: "byte-xx",
+  storageBucket: "byte-xx.firebasestorage.app",
+  messagingSenderId: "629352041749",
+  appId: "1:629352041749:web:99fdae968ba71636f36d1c",
+  measurementId: "G-TB2DJZ2M4R",
 };
 
 let app, auth, db;
@@ -42,7 +42,7 @@ try {
   app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
   auth = getAuth(app);
   db = getDatabase(app);
-  console.log("✅ Firebase initialized for project: satellite-efa0a");
+  console.log("✅ Firebase initialized for project: byte-xx");
 } catch (error) {
   console.warn("Firebase init error:", error.message);
 }

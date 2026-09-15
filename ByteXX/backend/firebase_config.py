@@ -4,8 +4,8 @@ Firebase Configuration for SatQuery AI Backend
 Uses Firebase Admin SDK (with dynamic service-account key discovery)
 AND direct RTDB REST helpers as a fallback to avoid JWT clock-skew errors.
 
-Project:  satellite-efa0a
-RTDB URL: https://satellite-efa0a-default-rtdb.firebaseio.com
+Project:  byte-xx
+RTDB URL: https://byte-xx-default-rtdb.firebaseio.com
 """
 
 import glob
@@ -19,14 +19,14 @@ from firebase_admin import credentials, db, storage
 
 # ── Firebase client-side config (matches web app in Firebase Console) ─────────
 FIREBASE_CONFIG = {
-    "apiKey":            "AIzaSyDJtjpV4DpD-Ev0BeRJDsfZV4k5U63dpW4",
-    "authDomain":        "satellite-efa0a.firebaseapp.com",
-    "projectId":         "satellite-efa0a",
-    "storageBucket":     "satellite-efa0a.firebasestorage.app",
-    "messagingSenderId": "504899672780",
-    "appId":             "1:504899672780:web:4f61a1b212930752cdc069",
-    "measurementId":     "G-TY956H2RJF",
-    "databaseURL":       "https://satellite-efa0a-default-rtdb.firebaseio.com",
+    "apiKey":            "AIzaSyC6ZGXjgujlhz3UEvFPHubDLLDQx5PGMBc",
+    "authDomain":        "byte-xx.firebaseapp.com",
+    "projectId":         "byte-xx",
+    "storageBucket":     "byte-xx.firebasestorage.app",
+    "messagingSenderId": "629352041749",
+    "appId":             "1:629352041749:web:99fdae968ba71636f36d1c",
+    "measurementId":     "G-TB2DJZ2M4R",
+    "databaseURL":       "https://byte-xx-default-rtdb.firebaseio.com",
 }
 
 # ── RTDB base URL (for REST fallback) ─────────────────────────────────────────

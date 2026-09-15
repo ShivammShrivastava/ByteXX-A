@@ -13,7 +13,7 @@ import os
 # ─────────────────────────────────────────────
 OPENROUTER_API_KEY = os.environ.get(
     "OPENROUTER_API_KEY",
-    "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"
+    "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"
 )
 
 # Primary model: Google Gemma 4 31B Instruct (free tier on OpenRouter)
@@ -23,16 +23,14 @@ OPENROUTER_MODEL = os.environ.get(
 )
 
 # Fallback models tried in order if primary is rate-limited (429).
-# Only confirmed-free vision models on OpenRouter.
-# Keep diverse to avoid single-provider outages blocking all fallbacks.
+# List fetched from OpenRouter /models endpoint — only confirmed :free + vision models.
 OPENROUTER_FALLBACK_MODELS = [
     m.strip() for m in os.environ.get(
         "OPENROUTER_FALLBACK_MODELS",
         ",".join([
-            "google/gemma-4-26b-a4b-it:free",                # Google — confirmed working
-            "google/gemini-2.0-flash-exp:free",              # Gemini — different quota bucket
-            "meta-llama/llama-3.2-11b-vision-instruct:free", # Meta — vision model
-            "google/gemma-3-27b-it:free",                    # Google Gemma 3 — fallback
+            "google/gemma-4-26b-a4b-it:free",        # Google Gemma 4 — confirmed free+vision
+            "inclusionai/ling-3.0-flash-vl:free",    # Ling VL — confirmed free+vision
+            "thinkingmachines/inkling:free",          # Inkling — confirmed free+vision
         ])
     ).split(",") if m.strip()
 ]
@@ -46,13 +44,13 @@ OPENROUTER_BASE_URL = os.environ.get(
 OPENROUTER_REFERER  = os.environ.get("OPENROUTER_REFERER",  "https://bytex.satquery.ai")
 OPENROUTER_SITENAME = os.environ.get("OPENROUTER_SITENAME", "ByteX SatQuery AI")
 
-# Max new tokens for each task type
-MAX_NEW_TOKENS_VQA     = int(os.environ.get("SATQUERY_MAX_TOKENS_VQA",     "512"))
-MAX_NEW_TOKENS_CAPTION = int(os.environ.get("SATQUERY_MAX_TOKENS_CAPTION", "512"))
+# Max new tokens for each task type (1024 avoids finish_reason=length truncation)
+MAX_NEW_TOKENS_VQA     = int(os.environ.get("SATQUERY_MAX_TOKENS_VQA",     "1024"))
+MAX_NEW_TOKENS_CAPTION = int(os.environ.get("SATQUERY_MAX_TOKENS_CAPTION", "1024"))
 MAX_NEW_TOKENS_REFER   = int(os.environ.get("SATQUERY_MAX_TOKENS_REFER",   "512"))
 
-# Max retries on 429 / transient errors
-OPENROUTER_MAX_RETRIES = int(os.environ.get("OPENROUTER_MAX_RETRIES", "4"))
+# Max retries on 429 / transient errors (keep low to avoid 2+ minute waits)
+OPENROUTER_MAX_RETRIES = int(os.environ.get("OPENROUTER_MAX_RETRIES", "2"))
 
 # ─────────────────────────────────────────────
 # System Prompt
