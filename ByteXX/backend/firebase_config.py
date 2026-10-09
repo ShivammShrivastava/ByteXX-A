@@ -19,14 +19,7 @@ from firebase_admin import credentials, db, storage
 
 # ── Firebase client-side config (matches web app in Firebase Console) ─────────
 FIREBASE_CONFIG = {
-    "apiKey":            "AIzaSyC6ZGXjgujlhz3UEvFPHubDLLDQx5PGMBc",
-    "authDomain":        "byte-xx.firebaseapp.com",
-    "projectId":         "byte-xx",
-    "storageBucket":     "byte-xx.firebasestorage.app",
-    "messagingSenderId": "629352041749",
-    "appId":             "1:629352041749:web:99fdae968ba71636f36d1c",
-    "measurementId":     "G-TB2DJZ2M4R",
-    "databaseURL":       "https://byte-xx-default-rtdb.firebaseio.com",
+
 }
 
 # ── RTDB base URL (for REST fallback) ─────────────────────────────────────────
