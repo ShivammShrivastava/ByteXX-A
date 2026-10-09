@@ -12,8 +12,6 @@ import os
 # OpenRouter / Gemma 4
 # ─────────────────────────────────────────────
 OPENROUTER_API_KEY = os.environ.get(
-    "OPENROUTER_API_KEY",
-    "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"
 )
 
 # Primary model: Google Gemma 4 31B Instruct (free tier on OpenRouter)
